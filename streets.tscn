@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b72ctmymomp1m"]
+
+[ext_resource type="PackedScene" uid="uid://gvqjesyqotg0" path="res://skreets.tscn" id="1_qkp3r"]
+
+[node name="Streets" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.3406)
+visible = false
+
+[node name="skreets" parent="." instance=ExtResource("1_qkp3r")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.0925908, 3.3406)

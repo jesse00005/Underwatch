@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://qw1vlov23a0g"]
+
+[ext_resource type="AudioStream" uid="uid://dc7ie1a827y2m" path="res://underwatchstreets.ogg" id="1_6d2js"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_6d2js")
+volume_db = -40.0
+parameters/looping = true

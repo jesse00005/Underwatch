@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dr2wexrmbab15"]
+
+[ext_resource type="Script" path="res://projectile.gd" id="1_t2ebt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rkc8y"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_cw6cq"]
+material = SubResource("StandardMaterial3D_rkc8y")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q41h0"]
+
+[node name="Projectile" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.318969, 0.658676)
+script = ExtResource("1_t2ebt")
+
+[node name="bullet" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, -0.0414077)
+mesh = SubResource("SphereMesh_cw6cq")
+
+[node name="hitbox" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, -0.0399387)
+shape = SubResource("SphereShape3D_q41h0")
+disabled = true

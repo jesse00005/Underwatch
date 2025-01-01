@@ -1,0 +1,288 @@
+[gd_scene load_steps=17 format=3 uid="uid://10w80a3dkh07"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_tba88"]
+[ext_resource type="Texture2D" uid="uid://dktkeirbml7jh" path="res://addons/kenney_particle_pack/circle_05.png" id="3_40yym"]
+[ext_resource type="Texture2D" uid="uid://dbxubt5hbn41q" path="res://underwatchlogo.png" id="3_dog5c"]
+[ext_resource type="PackedScene" uid="uid://qw1vlov23a0g" path="res://music_player.tscn" id="5_ki28h"]
+
+[sub_resource type="Theme" id="Theme_sk3m2"]
+/colors/color = Color(0.921569, 0.356863, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xofyb"]
+bg_color = Color(0.301961, 0, 1, 1)
+
+[sub_resource type="Theme" id="Theme_2nolc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_extp4"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bbaus"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xs3bb"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83fsv"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67l02"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_267ng"]
+bg_color = Color(0.842847, 0.265919, 0.119087, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nl7g2"]
+bg_color = Color(0.265605, 0.705892, 0.301387, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6184d"]
+albedo_color = Color(0, 0.807843, 0.0862745, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ct51s"]
+material = SubResource("StandardMaterial3D_6184d")
+
+[node name="Main" type="Node"]
+script = ExtResource("1_tba88")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.194355, 1.84379, 2.86008)
+light_energy = 1.304
+shadow_enabled = true
+shadow_blur = 0.524
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -515.0
+offset_top = -254.0
+offset_right = 515.0
+offset_bottom = 254.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_sk3m2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xofyb")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu"]
+layout_mode = 2
+theme = SubResource("Theme_2nolc")
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_dog5c")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Underwatch"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Map (host only): "
+
+[node name="MapSelect" type="OptionButton" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.301961, 0, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_extp4")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_extp4")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_extp4")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_extp4")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_extp4")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_extp4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_extp4")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_extp4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_extp4")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_extp4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_extp4")
+item_count = 3
+popup/item_0/text = " Streets"
+popup/item_1/text = " Dalaran"
+popup/item_1/id = 1
+popup/item_2/text = " Minecraft"
+popup/item_2/id = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "   Character: "
+
+[node name="CharacterSelect" type="OptionButton" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.301961, 0, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_bbaus")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_bbaus")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_bbaus")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_bbaus")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_bbaus")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_bbaus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bbaus")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_bbaus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bbaus")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_bbaus")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bbaus")
+item_count = 1
+popup/item_0/text = " Peter"
+
+[node name="HostButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.301961, 0, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_xs3bb")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_xs3bb")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_xs3bb")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_xs3bb")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_xs3bb")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_xs3bb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xs3bb")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_xs3bb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xs3bb")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_xs3bb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xs3bb")
+text = "   Host   "
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.301961, 0, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_83fsv")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_83fsv")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_83fsv")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_83fsv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_83fsv")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_83fsv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_83fsv")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_83fsv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_83fsv")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_83fsv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_83fsv")
+text = "    Join    "
+
+[node name="AddressEntry" type="LineEdit" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/clear_button_color_pressed = Color(0, 0, 0, 1)
+theme_override_colors/clear_button_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0.301961, 0, 1, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_uneditable_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_67l02")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_67l02")
+theme_override_styles/normal = SubResource("StyleBoxFlat_67l02")
+placeholder_text = "Enter Address to Join Here"
+alignment = 1
+
+[node name="ErrorLabel" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -567.0
+offset_top = -322.0
+offset_right = -55.0001
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.03, 0.03)
+pivot_offset = Vector2(576, 324)
+texture = ExtResource("3_40yym")
+stretch_mode = 5
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.011
+anchor_top = 0.941
+anchor_right = 0.212
+anchor_bottom = 0.985
+offset_left = 0.327999
+offset_top = 0.231995
+offset_right = -0.224014
+offset_bottom = -0.280029
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_267ng")
+theme_override_styles/fill = SubResource("StyleBoxFlat_nl7g2")
+max_value = 300.0
+value = 300.0
+show_percentage = false
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player.tscn")
+spawn_path = NodePath("..")
+
+[node name="MusicPlayer" parent="." instance=ExtResource("5_ki28h")]
+volume_db = -26.453
+
+[node name="playerreference" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="playerreference"]
+transform = Transform3D(0.242967, 0, 0, 0, 0.475238, 0, 0, 0, 0.295773, 0.17786, 0.207881, 0)
+mesh = SubResource("BoxMesh_ct51s")
+
+[connection signal="item_selected" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MapSelect" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer2/CharacterSelect" to="." method="_on_character_select_item_selected"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

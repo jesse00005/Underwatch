@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkj08x1vxwemw"]
+
+[ext_resource type="AudioStream" uid="uid://dybkqb6yq1qcb" path="res://peterlaugh.ogg" id="1_t4jfx"]
+
+[node name="peter_laugh" type="AudioStreamPlayer"]
+stream = ExtResource("1_t4jfx")

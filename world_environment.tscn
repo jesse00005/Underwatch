@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cth1k43occ4rm"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ya0g0"]
+sky_top_color = Color(0.340079, 0.492149, 0.365482, 1)
+sky_horizon_color = Color(0.453073, 0.507602, 0.498564, 1)
+ground_bottom_color = Color(0.403671, 0.266961, 0.188975, 1)
+ground_horizon_color = Color(0.676472, 0.679275, 0.717021, 1)
+
+[sub_resource type="Sky" id="Sky_j77hg"]
+sky_material = SubResource("ProceduralSkyMaterial_ya0g0")
+
+[sub_resource type="Environment" id="Environment_8dyye"]
+background_mode = 2
+sky = SubResource("Sky_j77hg")
+tonemap_mode = 2
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_6jnmc"]
+exposure_multiplier = 0.366
+dof_blur_far_distance = 8.65
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_8dyye")
+camera_attributes = SubResource("CameraAttributesPractical_6jnmc")

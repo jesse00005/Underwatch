@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dt1jrvo0epotq"
+path.s3tc="res://.godot/imported/dalaran_fantasyislandchallenge_33.png-148bc8958dc3e9ec14adcae174df1c95.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "02936137c47e43783472c430b687705f"
+}
+
+[deps]
+
+source_file="res://dalaran/dalaran_fantasyislandchallenge_33.png"
+dest_files=["res://.godot/imported/dalaran_fantasyislandchallenge_33.png-148bc8958dc3e9ec14adcae174df1c95.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

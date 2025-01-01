@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp5dasmfoyjtt"]
+
+[ext_resource type="AudioStream" uid="uid://dam31ti6yx3vp" path="res://underwatchPeterGun.ogg" id="1_3gf6j"]
+
+[node name="PeterGun" type="AudioStreamPlayer"]
+stream = ExtResource("1_3gf6j")
