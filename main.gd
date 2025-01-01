@@ -34,6 +34,7 @@ func _process(delta: float) -> void:
 func _on_host_button_pressed() -> void:
 	if map_dropdown.get_selected_id() > -1 and character_dropdown.get_selected_id() > -1:
 		var map = selected_map.instantiate()
+		print("yo")
 		add_child(map)
 		main_menu.hide()
 		hud.show()
