@@ -152,8 +152,10 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_bbaus")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_bbaus")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_bbaus")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bbaus")
-item_count = 1
+item_count = 2
 popup/item_0/text = " Peter"
+popup/item_1/text = " Gun Car"
+popup/item_1/id = 1
 
 [node name="HostButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2

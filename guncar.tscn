@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0w13msjyhptd"]
+
+[ext_resource type="Script" path="res://guncar.gd" id="1_cs1lt"]
+[ext_resource type="PackedScene" uid="uid://ckqlsx114dg5b" path="res://guncarmodel.tscn" id="2_7561n"]
+[ext_resource type="PackedScene" uid="uid://cp5dasmfoyjtt" path="res://peter_gun.tscn" id="4_bsckw"]
+[ext_resource type="PackedScene" uid="uid://bkj08x1vxwemw" path="res://peter_laugh.tscn" id="5_tmtgi"]
+[ext_resource type="PackedScene" uid="uid://hji4tc528rsb" path="res://pause_menu.tscn" id="6_dcjsh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8t60p"]
+size = Vector3(0.5, 0.352, 1.146)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5jgtd"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Pivot/peterrigged4:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Pivot/peterrigged4:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[node name="guncar" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0739215, 0)
+collision_layer = 2
+script = ExtResource("1_cs1lt")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="guncar2" parent="Pivot" instance=ExtResource("2_7561n")]
+transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 0, 0, -0.081)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.194256, -0.0815876)
+shape = SubResource("BoxShape3D_8t60p")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.999687, 0.00242358, -0.0248818, 0.000888677, 0.991216, 0.132253, 0.0249837, -0.132234, 0.990904, 0.284397, 0.432129, 0.574194)
+fov = 92.6
+far = 100.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -50)
+collision_mask = 2
+
+[node name="PeterGun" parent="." instance=ExtResource("4_bsckw")]
+
+[node name="peter_laugh" parent="." instance=ExtResource("5_tmtgi")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5jgtd")
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_dcjsh")]
+visible = false
