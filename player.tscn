@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://hji4tc528rsb" path="res://pause_menu.tscn" id="5_8jyi3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8t60p"]
-size = Vector3(0.220108, 0.797367, 0.181396)
+size = Vector3(0.5, 0.352, 1.146)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5jgtd"]
 properties/0/path = NodePath(".:position")

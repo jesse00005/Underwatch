@@ -16,6 +16,7 @@ var enet_peer = ENetMultiplayerPeer.new()
 const Peter = preload("res://player.tscn")
 const Streets = preload("res://skreets.tscn")
 const Dalaran = preload("res://dalaran.tscn")
+const Gun_Car = preload("res://guncar.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -113,3 +114,5 @@ func _on_option_button_item_selected(index: int) -> void:
 func _on_character_select_item_selected(index: int) -> void:
 	if index == 0:
 		selected_character = Peter
+	if index == 1:
+		selected_character = Gun_Car
