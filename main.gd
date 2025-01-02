@@ -8,7 +8,6 @@ extends Node
 @onready var map_dropdown = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MapSelect
 @onready var selected_map_index = null
 @onready var error_label = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/ErrorLabel
-@onready var selected_character
 @onready var selected_character_index = null
 @onready var character_dropdown = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer2/CharacterSelect
 
@@ -120,7 +119,3 @@ func _on_option_button_item_selected(index: int) -> void:
 
 func _on_character_select_item_selected(index: int) -> void:
 	selected_character_index = index
-	if index == 0:
-		selected_character = Peter
-	if index == 1:
-		selected_character = Gun_Car
