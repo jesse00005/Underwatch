@@ -1,9 +1,9 @@
-# Underwatch
-Development for a new hero shooter
+# :zap: Underwatch
+Development for a new hero shooter.
 
-### About
+### :beginner: About
 The project is developed with **Godot 4**.
 
-### Contributing
+### :cherry_blossom: Contributing
 Feel free to report bugs, request features, and contribute code.
 
