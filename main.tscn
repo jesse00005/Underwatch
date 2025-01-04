@@ -40,7 +40,7 @@ albedo_color = Color(0, 0.807843, 0.0862745, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_ct51s"]
 material = SubResource("StandardMaterial3D_6184d")
 
-[node name="Main" type="Node"]
+[node name="Game" type="Node"]
 script = ExtResource("1_tba88")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -222,6 +222,10 @@ placeholder_text = "Enter Address to Join Here"
 alignment = 1
 
 [node name="ErrorLabel" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="PlayersLabel" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 
