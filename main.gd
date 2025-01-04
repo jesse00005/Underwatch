@@ -52,8 +52,8 @@ func join_game():
 	Lobby.join_game("localhost")
 
 func start_game():
-	Lobby.create_game()
-	print("Created game")
+	Lobby.load_game.rpc("res://skreets.tscn")
+	print("Starting game!")
 
 func _on_option_button_item_selected(index: int) -> void:
 	return

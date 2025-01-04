@@ -66,6 +66,10 @@ func remove_multiplayer_peer():
 @rpc("call_local", "reliable")
 func load_game(game_scene_path):
 	get_tree().change_scene_to_file(game_scene_path)
+	for peer_id in players.keys():
+		var player = load("res://player.tscn").instantiate()
+		player.name = str(peer_id)
+		add_child(player)
 
 
 # Every peer will call this when they have loaded the game scene.
