@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 MusicPlayer="*res://music_player.tscn"
+Lobby="*res://Lobby.gd"
+Constants="*res://Constants.gd"
 
 [input]
 
