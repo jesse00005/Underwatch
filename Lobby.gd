@@ -72,6 +72,13 @@ func load_game(map_id):
 		var player = character.scene.instantiate()
 		player.name = str(peer_id)
 		add_child(player)
+		
+		var hud = preload("res://hud.tscn").instantiate()
+		add_child(hud)
+		hud.visible = player.is_multiplayer_authority()
+		if player.is_multiplayer_authority():
+			player.health_changed.connect(func(health_value):
+				hud.get_node("HealthBar").value = health_value)
 		add_child(preload("res://music_player.tscn").instantiate())
 
 
