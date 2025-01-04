@@ -27,7 +27,6 @@ var player_info = {
 var players_loaded = 0
 
 
-
 func _ready():
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
@@ -64,10 +63,13 @@ func remove_multiplayer_peer():
 # When the server decides to start the game from a UI scene,
 # do Lobby.load_game.rpc(filepath)
 @rpc("call_local", "reliable")
-func load_game(game_scene_path):
-	get_tree().change_scene_to_file(game_scene_path)
+func load_game(map_id):
+	var map = Constants.mapsById[map_id]
+	get_tree().change_scene_to_packed(map.scene)
 	for peer_id in players.keys():
-		var player = load("res://player.tscn").instantiate()
+		var player_info = players[peer_id]
+		var character = Constants.charactersById[player_info.selected_character_id]
+		var player = character.scene.instantiate()
 		player.name = str(peer_id)
 		add_child(player)
 

@@ -10,19 +10,7 @@ extends Node
 @onready var map_dropdown = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MapSelect
 @onready var character_dropdown = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer2/CharacterSelect
 
-const Peter = preload("res://player.tscn")
-const Streets = preload("res://skreets.tscn")
-const Dalaran = preload("res://dalaran.tscn")
-const Gun_Car = preload("res://guncar.tscn")
-
-const characters = [
-	Peter,
-	Gun_Car,
-]
-const maps = [
-	Streets,
-	Dalaran
-]
+var selected_map_id = null
 
 func _ready():
 	# Preconfigure game.
@@ -42,22 +30,26 @@ func update_lobby_info(new_player_id, new_player_info):
 	players_label.text = res
 
 func host_game():
+	if selected_map_id == null || Lobby.player_info["selected_character_id"] == null:
+		error_label.text = "Select a map and character before hosting"
+		return
 	start_game_button.visible = true
+	host_button.visible = false
 	Lobby.create_game()
 
 func join_game():
-	if !Lobby.player_info["selected_character_id"]:
+	if Lobby.player_info["selected_character_id"] == null:
 		error_label.text = "Select a character before joining"
 		return
 	Lobby.join_game("localhost")
 
 func start_game():
-	Lobby.load_game.rpc("res://skreets.tscn")
+	Lobby.load_game.rpc(selected_map_id)
 	print("Starting game!")
 
 func _on_option_button_item_selected(index: int) -> void:
-	return
+	selected_map_id = index + 1
 
 
 func _on_character_select_item_selected(index: int) -> void:
-	Lobby.player_info["selected_character_id"] = index
+	Lobby.player_info["selected_character_id"] = index + 1
