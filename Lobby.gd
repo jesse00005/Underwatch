@@ -72,6 +72,7 @@ func load_game(map_id):
 		var player = character.scene.instantiate()
 		player.name = str(peer_id)
 		add_child(player)
+		add_child(preload("res://music_player.tscn").instantiate())
 
 
 # Every peer will call this when they have loaded the game scene.

@@ -4,7 +4,7 @@ var music_player: AudioStreamPlayer = null
 @onready var hslider = $MarginContainer/VBoxContainer/HSlider
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	music_player = get_node("/root/Main/MusicPlayer")
+	music_player = get_node("/root/MusicPlayer")
 	music_player.volume_db = -40.0
 	hslider.value = 0
 	
