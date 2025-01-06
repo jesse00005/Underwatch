@@ -15,6 +15,8 @@ const MAX_CONNECTIONS = 20
 # with the keys being each player's unique IDs.
 var players = {}
 
+var player_nodes = {}
+
 # This is the local player info. This should be modified locally
 # before the connection is made. It will be passed to every other peer.
 # For example, the value of "name" can be set to something the player
@@ -72,6 +74,7 @@ func load_game(map_id):
 		var player = character.scene.instantiate()
 		player.name = str(peer_id)
 		add_child(player)
+		player_nodes[peer_id] = player
 		
 		var hud = preload("res://hud.tscn").instantiate()
 		add_child(hud)
@@ -97,6 +100,10 @@ func player_loaded():
 func _on_player_connected(id):
 	_register_player.rpc_id(id, player_info)
 
+@rpc("any_peer")
+func get_node_from_peer_id(peer_id):
+	return player_nodes.get(peer_id, null)
+
 
 @rpc("any_peer", "reliable")
 func _register_player(new_player_info):
@@ -109,6 +116,7 @@ func _register_player(new_player_info):
 func _on_player_disconnected(id):
 	players.erase(id)
 	player_disconnected.emit(id)
+	player_nodes.erase(id)
 
 
 func _on_connected_ok():

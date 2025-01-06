@@ -18,6 +18,7 @@ var health = 300
 var last_shot_time = 0.0
 var shoot_cooldown = 0.5
 
+
 @export var mouse_sensitivity = .2
 @onready var camera = $Camera3D
 @onready var isPaused = false
@@ -52,10 +53,17 @@ func _input(event):
 		#shoot_projectile()
 			
 			play_shoot_effects.rpc()
+			
 			if raycast.is_colliding():
 				var hit_player = raycast.get_collider()
-				hit_player.receive_damage.rpc_id(hit_player.get_multiplayer_authority())
-			
+				#hit_player.receive_damage.rpc_id(hit_player.get_multiplayer_authority())
+				rpc("deal_damage", hit_player.get_multiplayer_authority(), weapon_damage)
+				
+@rpc("call_local")
+func deal_damage(peer_id, amount):
+	var target_player = Lobby.get_node_from_peer_id(peer_id)
+	target_player.receive_damage(amount)
+
 
 @rpc("call_local")
 func play_shoot_effects():
@@ -67,12 +75,11 @@ func play_shoot_effects():
 	muzzle_flash.restart()
 
 @rpc("any_peer")
-func receive_damage():
-	health -= weapon_damage
+func receive_damage(amount):
+	health -= amount
 	if health <= 0:
 		health = max_health
 		position = Vector3.ZERO
-		$peter_laugh.playing = true
 	health_changed.emit(health)
 
 func shoot_projectile():
