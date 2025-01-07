@@ -1,20 +1,19 @@
 extends CharacterBody3D
+class_name Player
 
 signal health_changed(health_value)
 
 @export var speed = 2.5
 @export var fall_acceleration = 30
 @export var jump_impulse = 5
-@onready var anim = $Pivot/peterrigged4/AnimationPlayer
 @export var projectile_scene : PackedScene = preload("res://projectile.tscn")
 @export var shoot_offset = Vector3(.1, .3, 0)
 @export var weapon_damage = 60
 @onready var isMoving = false
-@onready var muzzle_flash = $Pivot/peterrigged4/MuzzleFlash
-@onready var raycast = $Camera3D/RayCast3D
 @onready var pause_menu = $PauseMenu
-var max_health = 300
-var health = 300
+@onready var raycast = $Camera3D/RayCast3D
+@export var max_health = 300
+@export var health = 300
 var last_shot_time = 0.0
 var shoot_cooldown = 0.5
 
@@ -39,26 +38,7 @@ func _ready():
 	camera.current = true
 	last_shot_time = -shoot_cooldown
 
-func _input(event):
-	
-	if not is_multiplayer_authority():
-		return
-	if !isPaused:
-		if event is InputEventMouseMotion:
-			yaw -= event.relative.x * mouse_sensitivity
-			pitch -= event.relative.y * mouse_sensitivity
-			pitch = clamp (pitch, -45.0, 90.0)
-		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT \
-			and anim.current_animation != "shoot_run" and anim.current_animation != "shoot_still":
-		#shoot_projectile()
-			
-			play_shoot_effects.rpc()
-			
-			if raycast.is_colliding():
-				var hit_player = raycast.get_collider()
-				#hit_player.receive_damage.rpc_id(hit_player.get_multiplayer_authority())
-				rpc("deal_damage", hit_player.get_multiplayer_authority(), weapon_damage)
-				
+
 @rpc("call_local")
 func deal_damage(peer_id, amount):
 	var target_player = Lobby.get_node_from_peer_id(peer_id)
@@ -67,30 +47,16 @@ func deal_damage(peer_id, amount):
 
 @rpc("call_local")
 func play_shoot_effects():
-	$PeterGun.playing = true
-	if isMoving:
-			anim.play("shoot_run")
-	elif !isMoving:
-		anim.play("shoot_still")
-	muzzle_flash.restart()
+	pass
 
 @rpc("any_peer")
-func receive_damage(amount):
+func receive_damage(amount): 
 	health -= amount
 	if health <= 0:
 		health = max_health
 		position = Vector3.ZERO
 	health_changed.emit(health)
 
-func shoot_projectile():
-	if not projectile_scene:
-		print("Projectile scene not assigned!")
-		return
-	var projectile = projectile_scene.instantiate()
-	projectile.position = camera.global_transform.origin + camera.global_transform.basis.z * -1.0
-	var direction = -camera.global_transform.basis.z.normalized()
-	#projectile.linear_velocity = direction * shoot_force
-	get_tree().current_scene.add_child(projectile)
 	
 
 func _physics_process(delta):
@@ -132,16 +98,13 @@ func _physics_process(delta):
 		direction = direction.normalized()
 		direction = direction.rotated(Vector3.UP, rotation.y)
 		
-		if anim.current_animation != "shoot_run" and anim.current_animation != "shoot_still":
-			anim.play("Object_4Action")	
+
 
 		
 		#$Pivot.basis = Basis.looking_at(direction)
 	elif direction == Vector3.ZERO:
 		isMoving = false
-		anim.stop	
-		if anim.current_animation != "shoot_still" and anim.current_animation != "shoot_run":
-			anim.play("mixamo_com_Object_4")
+
 			
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed

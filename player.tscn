@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://btk7o35n4hgcq"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_v0x33"]
+[ext_resource type="Script" path="res://peter.gd" id="1_wir8m"]
 [ext_resource type="PackedScene" uid="uid://cdwdjavpiiqvw" path="res://peterrigged_3.tscn" id="2_nc8ji"]
 [ext_resource type="PackedScene" uid="uid://cp5dasmfoyjtt" path="res://peter_gun.tscn" id="3_mmo5j"]
 [ext_resource type="PackedScene" uid="uid://bkj08x1vxwemw" path="res://peter_laugh.tscn" id="4_j4yg8"]
@@ -25,7 +25,7 @@ properties/3/replication_mode = 1
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0739215, 0)
 collision_layer = 2
-script = ExtResource("1_v0x33")
+script = ExtResource("1_wir8m")
 
 [node name="Pivot" type="Node3D" parent="."]
 
