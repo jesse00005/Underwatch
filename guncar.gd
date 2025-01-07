@@ -8,7 +8,7 @@ signal health_changed(health_value)
 @onready var anim = $Pivot/guncar2/AnimationPlayer
 @export var projectile_scene : PackedScene = preload("res://projectile.tscn")
 @export var shoot_offset = Vector3(.1, .3, 0)
-@export var weapon_damage = 60
+@export var weapon_damage = 200
 @onready var isMoving = false
 @onready var raycast = $Camera3D/RayCast3D
 @onready var pause_menu = $PauseMenu
@@ -53,7 +53,7 @@ func _input(event):
 			play_shoot_effects.rpc()
 			if raycast.is_colliding():
 				var hit_player = raycast.get_collider()
-				hit_player.receive_damage.rpc_id(hit_player.get_multiplayer_authority())
+				rpc("deal_damage", hit_player.get_multiplayer_authority(), weapon_damage)
 			
 
 @rpc("call_local")
@@ -61,9 +61,14 @@ func play_shoot_effects():
 	$PeterGun.playing = true
 	anim.play("shoot")
 
+@rpc("call_local")
+func deal_damage(peer_id, amount):
+	var target_player = Lobby.get_node_from_peer_id(peer_id)
+	target_player.receive_damage(amount)
+
 @rpc("any_peer")
-func receive_damage():
-	health -= weapon_damage
+func receive_damage(amount):
+	health -= amount
 	if health <= 0:
 		health = max_health
 		position = Vector3.ZERO
