@@ -3,6 +3,12 @@ extends Player
 @onready var muzzle_flash = $Pivot/peterrigged4/MuzzleFlash
 @onready var anim = $Pivot/peterrigged4/AnimationPlayer
 
+func _ready():
+	health = 300
+	max_health = 300
+	speed = 2.5
+	weapon_damage = 60
+
 func _input(event):
 	
 	if not is_multiplayer_authority():
@@ -31,6 +37,15 @@ func _process(delta):
 		anim.stop
 		if anim.current_animation != "shoot_still" and anim.current_animation != "shoot_run":
 			anim.play("mixamo_com_Object_4")
+
+@rpc("any_peer")
+func receive_damage(amount): 
+	health -= amount
+	if health <= 0:
+		health = max_health
+		position = Vector3.ZERO
+		$peter_laugh.playing = true
+	health_changed.emit(health)
 
 func play_shoot_effects():
 	$PeterGun.playing = true

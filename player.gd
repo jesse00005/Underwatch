@@ -55,7 +55,6 @@ func receive_damage(amount):
 	if health <= 0:
 		health = max_health
 		position = Vector3.ZERO
-		$peter_laugh.playing = true
 	health_changed.emit(health)
 
 	

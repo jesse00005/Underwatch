@@ -3,6 +3,12 @@ extends Player
 @onready var anim = $Pivot/guncar2/AnimationPlayer
 
 
+func _ready():
+	health = 500
+	max_health = 500
+	speed = 2.5
+	weapon_damage = 100
+
 func _input(event):
 	
 	if not is_multiplayer_authority():
