@@ -10,6 +10,8 @@ extends Node
 @onready var map_dropdown = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MapSelect
 @onready var character_dropdown = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer2/CharacterSelect
 
+@onready var title_screen_music_player = $TitleScreenMusicPlayer
+
 var selected_map_id = null
 
 func _ready():
@@ -53,3 +55,10 @@ func _on_option_button_item_selected(index: int) -> void:
 
 func _on_character_select_item_selected(index: int) -> void:
 	Lobby.player_info["selected_character_id"] = index + 1
+
+
+func _on_title_screen_music_volume_slider_value_changed(value: float) -> void:
+	if value < 0.01:
+		$TitleScreenMusicPlayer.attenuation = 1000000
+	$TitleScreenMusicPlayer.attenuation = 1
+	$TitleScreenMusicPlayer.volume_db = linear_to_db(value)
