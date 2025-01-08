@@ -1,12 +1,10 @@
 extends Control
 
-var music_player: AudioStreamPlayer = null
+@onready var music_player = $"../MusicPlayer"
 @onready var hslider = $MarginContainer/VBoxContainer/HSlider
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	music_player = get_node("/root/MusicPlayer")
-	music_player.volume_db = -40.0
-	hslider.value = 0
+	pass
 	
 
 
@@ -15,5 +13,9 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_h_slider_value_changed(value: float) -> void:
-	music_player.volume_db = value - 80
+
+func _on_music_slider_value_changed(value: float) -> void:
+	if value < 0.01:
+		music_player.attenuation = 1000000
+	music_player.attenuation = 1
+	music_player.volume_db = linear_to_db(value)

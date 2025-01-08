@@ -12,6 +12,7 @@ signal health_changed(health_value)
 @onready var isMoving = false
 @onready var pause_menu = $PauseMenu
 @onready var raycast = $Camera3D/RayCast3D
+@onready var music_player = $MusicPlayer
 @export var max_health = 300
 @export var health = 300
 var last_shot_time = 0.0
@@ -89,6 +90,7 @@ func _physics_process(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			isPaused = true
 			pause_menu.show()
+			music_player
 			
 	if Input.is_action_just_pressed("reset"):
 		position = Vector3.ZERO
@@ -98,7 +100,10 @@ func _physics_process(delta):
 		direction = direction.normalized()
 		direction = direction.rotated(Vector3.UP, rotation.y)
 		
-
+	if isPaused:
+		AudioServer.set_bus_effect_enabled(0, 0, true)
+	if !isPaused:
+		AudioServer.set_bus_effect_enabled(0, 0, false)
 
 		
 		#$Pivot.basis = Basis.looking_at(direction)

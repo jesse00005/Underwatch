@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://btk7o35n4hgcq"]
+[gd_scene load_steps=9 format=3 uid="uid://btk7o35n4hgcq"]
 
 [ext_resource type="Script" path="res://peter.gd" id="1_wir8m"]
 [ext_resource type="PackedScene" uid="uid://cdwdjavpiiqvw" path="res://peterrigged_3.tscn" id="2_nc8ji"]
 [ext_resource type="PackedScene" uid="uid://cp5dasmfoyjtt" path="res://peter_gun.tscn" id="3_mmo5j"]
 [ext_resource type="PackedScene" uid="uid://bkj08x1vxwemw" path="res://peter_laugh.tscn" id="4_j4yg8"]
 [ext_resource type="PackedScene" uid="uid://hji4tc528rsb" path="res://pause_menu.tscn" id="5_8jyi3"]
+[ext_resource type="PackedScene" uid="uid://qw1vlov23a0g" path="res://music_player.tscn" id="6_f0k2o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kegfr"]
 
@@ -54,3 +55,7 @@ replication_config = SubResource("SceneReplicationConfig_5jgtd")
 
 [node name="PauseMenu" parent="." instance=ExtResource("5_8jyi3")]
 visible = false
+
+[node name="MusicPlayer" parent="." instance=ExtResource("6_f0k2o")]
+volume_db = -22.52
+autoplay = true
