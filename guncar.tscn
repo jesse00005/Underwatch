@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0w13msjyhptd"]
+[gd_scene load_steps=9 format=3 uid="uid://b0w13msjyhptd"]
 
 [ext_resource type="Script" path="res://guncar.gd" id="1_cs1lt"]
 [ext_resource type="PackedScene" uid="uid://ckqlsx114dg5b" path="res://guncarmodel.tscn" id="2_7561n"]
 [ext_resource type="PackedScene" uid="uid://cp5dasmfoyjtt" path="res://peter_gun.tscn" id="4_bsckw"]
 [ext_resource type="PackedScene" uid="uid://bkj08x1vxwemw" path="res://peter_laugh.tscn" id="5_tmtgi"]
 [ext_resource type="PackedScene" uid="uid://hji4tc528rsb" path="res://pause_menu.tscn" id="6_dcjsh"]
+[ext_resource type="PackedScene" uid="uid://qw1vlov23a0g" path="res://music_player.tscn" id="6_nypkx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8t60p"]
 size = Vector3(0.5, 0.352, 1.146)
@@ -55,3 +56,7 @@ replication_config = SubResource("SceneReplicationConfig_5jgtd")
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_dcjsh")]
 visible = false
+
+[node name="MusicPlayer" parent="." instance=ExtResource("6_nypkx")]
+volume_db = -22.52
+autoplay = true

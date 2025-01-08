@@ -1,0 +1,24 @@
+[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://d0afok13sm0mp"]
+
+[sub_resource type="AudioEffectEQ21" id="AudioEffectEQ21_1itb6"]
+resource_name = "EQ21"
+band_db/125_hz = -1.0
+band_db/175_hz = -1.0
+band_db/250_hz = -3.2
+band_db/350_hz = -36.1
+band_db/500_hz = -60.0
+band_db/700_hz = -60.0
+band_db/1000_hz = -60.0
+band_db/1400_hz = -60.0
+band_db/2000_hz = -60.0
+band_db/2800_hz = -60.0
+band_db/4000_hz = -60.0
+band_db/5600_hz = -60.0
+band_db/8000_hz = -60.0
+band_db/11000_hz = -60.0
+band_db/16000_hz = -60.0
+band_db/22000_hz = -60.0
+
+[resource]
+bus/0/effect/0/effect = SubResource("AudioEffectEQ21_1itb6")
+bus/0/effect/0/enabled = false
