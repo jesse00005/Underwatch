@@ -1,32 +1,30 @@
-extends Player
+extends "res://player.gd"
 
 @onready var anim = $Pivot/guncar2/AnimationPlayer
 
 
-func _ready():
-	health = 500
+func configure_hero():
 	max_health = 500
 	speed = 2.5
 	weapon_damage = 100
+	shoot_cooldown = 0.5
+
 
 func _input(event):
-	
-	if not is_multiplayer_authority():
+	process_look_input(event)
+
+	if not is_multiplayer_authority() or isPaused:
 		return
-	if !isPaused:
-		if event is InputEventMouseMotion:
-			yaw -= event.relative.x * mouse_sensitivity
-			pitch -= event.relative.y * mouse_sensitivity
-			pitch = clamp (pitch, -45.0, 90.0)
-		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT \
-			and anim.current_animation != "shoot":
-		#shoot_projectile()
-			
-			play_shoot_effects.rpc()
-			if raycast.is_colliding():
-				var hit_player = raycast.get_collider()
-				rpc("deal_damage", hit_player.get_multiplayer_authority(), weapon_damage)
-			
+
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if anim.current_animation == "shoot":
+			return
+		if not can_fire_weapon():
+			return
+
+		play_shoot_effects.rpc()
+		perform_hitscan_attack(weapon_damage)
+
 
 @rpc("call_local")
 func play_shoot_effects():

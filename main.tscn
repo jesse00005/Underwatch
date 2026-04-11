@@ -282,8 +282,7 @@ autoplay = true
 
 [connection signal="item_selected" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MapSelect" to="." method="_on_option_button_item_selected"]
 [connection signal="item_selected" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer2/CharacterSelect" to="." method="_on_character_select_item_selected"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/StartGameButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="host_game"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="join_game"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/StartGameButton" to="." method="start_game"]
 [connection signal="value_changed" from="CanvasLayer/TitleScreenMusicVolumeSlider" to="." method="_on_title_screen_music_volume_slider_value_changed"]
-[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

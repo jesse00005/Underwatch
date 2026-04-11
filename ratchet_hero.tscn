@@ -1,0 +1,161 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://ratchet_hero.gd" id="1_ratchet"]
+[ext_resource type="PackedScene" uid="uid://cp5dasmfoyjtt" path="res://peter_gun.tscn" id="2_blaster"]
+[ext_resource type="PackedScene" uid="uid://hji4tc528rsb" path="res://pause_menu.tscn" id="3_pause"]
+[ext_resource type="AudioStream" path="res://underwatchPeterGun.ogg" id="4_throw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.22
+height = 0.72
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ratchet"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Pivot/ModelRoot:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Pivot/ModelRoot:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fur"]
+albedo_color = Color(0.886275, 0.623529, 0.254902, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_armor"]
+albedo_color = Color(0.243137, 0.509804, 0.827451, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boots"]
+albedo_color = Color(0.160784, 0.188235, 0.247059, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wrench"]
+albedo_color = Color(0.745098, 0.776471, 0.827451, 1)
+metallic = 0.6
+roughness = 0.25
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_torso"]
+material = SubResource("StandardMaterial3D_armor")
+mid_height = 0.35
+radius = 0.18
+
+[sub_resource type="SphereMesh" id="SphereMesh_head"]
+material = SubResource("StandardMaterial3D_fur")
+radius = 0.16
+height = 0.32
+
+[sub_resource type="BoxMesh" id="BoxMesh_parts"]
+material = SubResource("StandardMaterial3D_fur")
+size = Vector3(0.12, 0.12, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wrench"]
+material = SubResource("StandardMaterial3D_wrench")
+size = Vector3(0.08, 0.32, 0.08)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_grenade_arc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grenade_arc"]
+shading_mode = 0
+albedo_color = Color(1, 0.603922, 0.203922, 0.95)
+emission_enabled = true
+emission = Color(1, 0.556863, 0.145098, 1)
+emission_energy_multiplier = 1.4
+transparency = 1
+no_depth_test = true
+
+[node name="RatchetHero" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_ratchet")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="ModelRoot" type="Node3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14, 0)
+
+[node name="Torso" type="MeshInstance3D" parent="Pivot/ModelRoot"]
+mesh = SubResource("CapsuleMesh_torso")
+
+[node name="Head" type="MeshInstance3D" parent="Pivot/ModelRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
+mesh = SubResource("SphereMesh_head")
+
+[node name="EarLeft" type="MeshInstance3D" parent="Pivot/ModelRoot"]
+transform = Transform3D(0.5, 0, 0, 0, 0.12, 0, 0, 0, 1.8, -0.19, 0.46, -0.02)
+mesh = SubResource("BoxMesh_parts")
+
+[node name="EarRight" type="MeshInstance3D" parent="Pivot/ModelRoot"]
+transform = Transform3D(0.5, 0, 0, 0, 0.12, 0, 0, 0, 1.8, 0.19, 0.46, -0.02)
+mesh = SubResource("BoxMesh_parts")
+
+[node name="ChestPlate" type="MeshInstance3D" parent="Pivot/ModelRoot"]
+transform = Transform3D(1.15, 0, 0, 0, 0.5, 0, 0, 0, 0.55, 0, 0.18, 0.08)
+mesh = SubResource("BoxMesh_parts")
+material_override = SubResource("StandardMaterial3D_armor")
+
+[node name="BootLeft" type="MeshInstance3D" parent="Pivot/ModelRoot"]
+transform = Transform3D(0.55, 0, 0, 0, 0.28, 0, 0, 0, 0.9, -0.09, -0.14, 0)
+mesh = SubResource("BoxMesh_parts")
+material_override = SubResource("StandardMaterial3D_boots")
+
+[node name="BootRight" type="MeshInstance3D" parent="Pivot/ModelRoot"]
+transform = Transform3D(0.55, 0, 0, 0, 0.28, 0, 0, 0, 0.9, 0.09, -0.14, 0)
+mesh = SubResource("BoxMesh_parts")
+material_override = SubResource("StandardMaterial3D_boots")
+
+[node name="Backpack" type="MeshInstance3D" parent="Pivot/ModelRoot"]
+transform = Transform3D(0.82, 0, 0, 0, 0.68, 0, 0, 0, 0.38, 0, 0.14, 0.17)
+mesh = SubResource("BoxMesh_parts")
+material_override = SubResource("StandardMaterial3D_armor")
+
+[node name="MuzzleFlash" type="MeshInstance3D" parent="Pivot/ModelRoot"]
+visible = false
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0.18, 0.18, -0.34)
+mesh = SubResource("SphereMesh_head")
+material_override = SubResource("StandardMaterial3D_wrench")
+
+[node name="WrenchPivot" type="Node3D" parent="Pivot/ModelRoot"]
+transform = Transform3D(0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0, 1, 0.22, 0.1, -0.02)
+
+[node name="WrenchHandle" type="MeshInstance3D" parent="Pivot/ModelRoot/WrenchPivot"]
+mesh = SubResource("BoxMesh_wrench")
+
+[node name="WrenchHead" type="MeshInstance3D" parent="Pivot/ModelRoot/WrenchPivot"]
+transform = Transform3D(1.4, 0, 0, 0, 0.35, 0, 0, 0, 0.8, 0, 0.18, 0)
+mesh = SubResource("BoxMesh_parts")
+material_override = SubResource("StandardMaterial3D_wrench")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.999687, 0.00242358, -0.0248818, 0.000888677, 0.991216, 0.132253, 0.0249837, -0.132234, 0.990904, 0.26, 0.48, 0.4)
+fov = 92.6
+far = 100.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -55)
+collision_mask = 2
+
+[node name="BlasterShot" parent="." instance=ExtResource("2_blaster")]
+
+[node name="GrenadeThrowSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_throw")
+volume_db = -8.0
+pitch_scale = 0.72
+max_distance = 60.0
+
+[node name="GrenadeArc" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("ImmediateMesh_grenade_arc")
+cast_shadow = 0
+material_override = SubResource("StandardMaterial3D_grenade_arc")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ratchet")
+
+[node name="PauseMenu" parent="." instance=ExtResource("3_pause")]
+visible = false

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://fusion_grenade.gd" id="1_grenade"]
+[ext_resource type="AudioStream" path="res://underwatchPeterGun.ogg" id="2_impact"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_body"]
+radius = 0.18
+height = 0.36
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grenade"]
+albedo_color = Color(0.992157, 0.52549, 0.129412, 1)
+emission_enabled = true
+emission = Color(1, 0.423529, 0.0705882, 1)
+emission_energy_multiplier = 1.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_explosion"]
+radius = 1.0
+height = 2.0
+
+[node name="FusionGrenade" type="Node3D"]
+script = ExtResource("1_grenade")
+
+[node name="GrenadeMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_body")
+material_override = SubResource("StandardMaterial3D_grenade")
+
+[node name="ExplosionFlash" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_explosion")
+material_override = SubResource("StandardMaterial3D_grenade")
+
+[node name="ImpactSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_impact")
+volume_db = -4.0
+pitch_scale = 0.55
+max_distance = 70.0

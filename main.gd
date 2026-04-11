@@ -6,59 +6,96 @@ extends Node
 
 @onready var error_label = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/ErrorLabel
 @onready var players_label = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/PlayersLabel
+@onready var address_entry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
 
 @onready var map_dropdown = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MapSelect
 @onready var character_dropdown = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HBoxContainer2/CharacterSelect
 
-@onready var title_screen_music_player = $TitleScreenMusicPlayer
-
 var selected_map_id = null
 
+
 func _ready():
-	# Preconfigure game.
-	Lobby.player_loaded.rpc_id(1) # Tell the server that this peer has loaded.
-	
-	host_button.pressed.connect(host_game)
-	join_button.pressed.connect(join_game)
-	start_game_button.pressed.connect(start_game)
+	_populate_menu_options()
 	Lobby.player_connected.connect(update_lobby_info)
 	Lobby.player_disconnected.connect(update_lobby_info)
 
-func update_lobby_info(new_player_id, new_player_info):
-	var res = ""
-	for peer_id in Lobby.players.keys():
+
+func _populate_menu_options():
+	map_dropdown.clear()
+	var map_ids = Constants.mapsById.keys()
+	map_ids.sort()
+	for map_id in map_ids:
+		map_dropdown.add_item(Constants.mapsById[map_id]["name"], map_id)
+	if map_ids.size() > 0:
+		map_dropdown.select(0)
+		selected_map_id = map_dropdown.get_item_id(0)
+
+	character_dropdown.clear()
+	var character_ids = Constants.charactersById.keys()
+	character_ids.sort()
+	for character_id in character_ids:
+		character_dropdown.add_item(Constants.charactersById[character_id]["name"], character_id)
+	if character_ids.size() > 0:
+		character_dropdown.select(0)
+		Lobby.player_info["selected_character_id"] = character_dropdown.get_item_id(0)
+	update_lobby_info()
+
+
+func update_lobby_info(_peer_id = 0, _player_info = null):
+	var rows = []
+	var peer_ids = Lobby.players.keys()
+	peer_ids.sort()
+	for peer_id in peer_ids:
 		var player_info = Lobby.players[peer_id]
-		res += str(peer_id) + ": " + str(player_info["selected_character_id"]) + "\n"
-	players_label.text = res
+		var character_id = player_info.get("selected_character_id", null)
+		var character_name = "Unselected"
+		if character_id != null and Constants.charactersById.has(character_id):
+			character_name = Constants.charactersById[character_id]["name"]
+		rows.append("%s: %s" % [peer_id, character_name])
+	players_label.text = "\n".join(rows)
+
 
 func host_game():
-	if selected_map_id == null || Lobby.player_info["selected_character_id"] == null:
+	if selected_map_id == null or Lobby.player_info["selected_character_id"] == null:
 		error_label.text = "Select a map and character before hosting"
 		return
+
+	error_label.text = ""
 	start_game_button.visible = true
 	host_button.visible = false
 	Lobby.create_game()
+
 
 func join_game():
 	if Lobby.player_info["selected_character_id"] == null:
 		error_label.text = "Select a character before joining"
 		return
-	Lobby.join_game("localhost")
+
+	error_label.text = ""
+	var address = address_entry.text.strip_edges()
+	Lobby.join_game(address)
+
 
 func start_game():
+	if selected_map_id == null:
+		error_label.text = "Select a map before starting"
+		return
+
 	Lobby.load_game.rpc(selected_map_id)
 	print("Starting game!")
 
-func _on_option_button_item_selected(index: int) -> void:
-	selected_map_id = index + 1
+
+func _on_option_button_item_selected(index):
+	selected_map_id = map_dropdown.get_item_id(index)
 
 
-func _on_character_select_item_selected(index: int) -> void:
-	Lobby.player_info["selected_character_id"] = index + 1
+func _on_character_select_item_selected(index):
+	Lobby.player_info["selected_character_id"] = character_dropdown.get_item_id(index)
+	update_lobby_info()
 
 
-func _on_title_screen_music_volume_slider_value_changed(value: float) -> void:
+func _on_title_screen_music_volume_slider_value_changed(value):
 	if value < 0.01:
-		$TitleScreenMusicPlayer.attenuation = 1000000
-	$TitleScreenMusicPlayer.attenuation = 1
+		$TitleScreenMusicPlayer.volume_db = -80.0
+		return
 	$TitleScreenMusicPlayer.volume_db = linear_to_db(value)

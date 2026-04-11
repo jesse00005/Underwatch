@@ -12,7 +12,12 @@ const charactersById = {
 		"name": "Guncar",
 		"scene": preload("res://guncar.tscn"),
 		"id": 2,
-	}
+	},
+	3: {
+		"name": "Ratchet",
+		"scene": preload("res://ratchet_hero.tscn"),
+		"id": 3,
+	},
 }
 
 const mapsById = {
@@ -25,5 +30,5 @@ const mapsById = {
 		"name": "Dalaran",
 		"scene": preload("res://dalaran.tscn"),
 		"id": 2,
-	}
+	},
 }
